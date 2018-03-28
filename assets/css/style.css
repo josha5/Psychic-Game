@@ -1,0 +1,21 @@
+body {
+background-image: url(../images/gradientImage.jpg);
+background-size: cover;
+font-family: Georgia;
+}
+
+.page-header {
+    color: white;
+}
+
+.container {
+    background-color: white;
+    border: 1px solid black;
+    height: 60%;
+    width: 60%;
+}
+
+p {
+    font-size: 22px;
+    padding: 30px;
+}
