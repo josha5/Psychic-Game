@@ -65,6 +65,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
     }
 
-    var modal = document.getElementById('modal');
-    modal.style.display = "block";
+    const modal = document.getElementById('modal');
+    
+    document.getElementById("closeModal").addEventListener("click", function() {
+        modal.style.display = "none";
+    });
+
 });
