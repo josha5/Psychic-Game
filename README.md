@@ -1,2 +1,2 @@
 # Psychic-Game
-Psychic game UCF coding bootcamp
+Active Link: https://josha5.github.io/Psychic-Game/
