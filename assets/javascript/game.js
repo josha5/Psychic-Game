@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     console.log("DOM fully loaded and parsed");
 
     let wins = document.querySelector("#winNumber");
-    const losses = document.querySelector("#lossNumber").textContent = 0;
+    let losses = document.querySelector("#lossNumber");
     let guessesLeft = document.querySelector("#guessesLeft");
     const currentGuesses = document.querySelector("#currentGuesses");
     let keyString = "";
@@ -10,36 +10,43 @@ document.addEventListener("DOMContentLoaded", function(event) {
     let gameWon = false;
     let guesses = 6;
     let winNumber = 0;
+    let lossNumber = 0;
+    let randomElem = "";
     
     // Getting random letter from alphabet array
     const randomLetter = function(alphabet) {
-        alphabet.splice(Math.floor(Math.random()* alphabet.length), 1).join("");
+        randomElem = alphabet.splice(Math.floor(Math.random()* alphabet.length), 1).join("");
+        console.log(randomElem);
+        return randomElem;
     }
 
+    randomLetter(alphabet);
     document.addEventListener("keypress", matchKey);
-    
+
     function matchKey(e) {
         var regex = /[a-zA-Z]/g;
-        if(e.key.match(regex)) {
+        if(e.key.match(regex) && e.keyCode !== 13) {
             keyString += e.key;
             currentGuesses.textContent = keyString;
-        }
+        } 
         loseAlert(keyString);
         validateKey(e);
     }
 
     function loseAlert(keyString) {
-        if(keyString.length > 6 && gameWon === false) {
+        if(keyString.length >= 6 && gameWon === false) {
+            lossNumber += 1;            
+            losses.textContent = lossNumber;
             alert("You lose!");
             newGame();
         }
     }
     
     function validateKey(e) {
-        if(e.key !== randomLetter) {
+        if(e.key !== randomElem) {
             guesses -= 1;
             guessesLeft.innerHTML = guesses;
-        } else if(e.key === randomLetter) {
+        } else if(e.key === randomElem) {
             alert("You win!");
             winNumber += 1;
             gameWon = true;
@@ -49,10 +56,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
     }
 
     function newGame() {
-        if(gameWon === true || keyString.length > 6) {
+        if(gameWon === true || keyString.length >= 6) {
+            randomElem = "";
             guesses = 6;
             keyString = "";
             gameWon = false;
+            randomLetter(alphabet);
         }
     }
+
+    var modal = document.getElementById('modal');
+    modal.style.display = "block";
 });
